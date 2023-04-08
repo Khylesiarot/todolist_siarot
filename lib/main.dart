@@ -3,6 +3,8 @@ import 'package:todolist_siarot/Provider/todolist_provider.dart';
 import 'package:todolist_siarot/widgets/add_dialog.dart';
 import 'package:provider/provider.dart';
 
+import 'widgets/todo_list_widget.dart';
+
 void main() {
   runApp(ChangeNotifierProvider(
     create: (_) => ToDoListProvider(),
@@ -26,6 +28,16 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int selectedIndex = 0;
 
+  final tabs = [
+    Center(
+      child: Consumer<ToDoListProvider>(
+        builder: (context, value, child) {
+          return TodoListWidget();
+        },
+      ),
+    ),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,6 +56,9 @@ class _HomePageState extends State<HomePage> {
           BottomNavigationBarItem(icon: Icon(Icons.done), label: 'Completed'),
         ],
       ),
+
+      body: tabs[selectedIndex],
+    
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           showDialog(context: context, builder: (context) =>
