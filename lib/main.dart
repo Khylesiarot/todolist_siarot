@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:todolist_siarot/Provider/todolist_provider.dart';
 import 'package:todolist_siarot/widgets/add_dialog.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(MaterialApp(
-    title: 'Todo App',
-    theme: ThemeData(
-      primarySwatch: Colors.blue,
+  runApp(ChangeNotifierProvider(
+    create: (_) => ToDoListProvider(),
+    child: MaterialApp(
+      title: 'Todo App',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: const HomePage(),
     ),
-    home: const HomePage(),
   ));
 }
 
@@ -54,5 +59,3 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
-
-
