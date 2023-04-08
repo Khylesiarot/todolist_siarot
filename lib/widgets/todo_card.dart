@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:todolist_siarot/widgets/edit_item_dialog.dart';
 
 import '../model/todo_model.dart';
 
@@ -53,7 +54,12 @@ class TodoWidget extends StatelessWidget {
 
   Widget buildTodo(BuildContext context) {
     return GestureDetector(
-      onTap: (){},
+      onTap: (){
+        showDialog(context: context, builder: (context) =>
+             EditDialogWidget(toDo: todo,),
+            barrierDismissible: false,
+          );
+      },
       child: Card(
         elevation: 5,
         shadowColor: Colors.black87,
