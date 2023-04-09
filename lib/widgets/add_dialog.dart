@@ -47,7 +47,7 @@ class _AddDialogWidgetState extends State<AddDialogWidget> {
             controller: _controller,
             decoration: const InputDecoration(
               border: UnderlineInputBorder(),
-              hintText: 'Input To Do item here',
+              hintText: 'Title',
               labelText: 'Title',
             ),
           ),
@@ -75,7 +75,7 @@ class _AddDialogWidgetState extends State<AddDialogWidget> {
                       toDo: _controller.text,
                       description: _descController.text);
                   context.read<ToDoListProvider>().add(newItem);
-                  const snackBar = SnackBar(content: Text('To Do Item added'));
+                  const snackBar = SnackBar(content: Text('New task has been added'));
                   ScaffoldMessenger.of(context).showSnackBar(snackBar);
                   Navigator.pop(context);
                 }
