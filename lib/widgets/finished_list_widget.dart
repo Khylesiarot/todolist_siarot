@@ -2,21 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todolist_siarot/Provider/todolist_provider.dart';
 
-import 'todo_card.dart';
+import 'finished_card.dart';
 
 
-class TodoListWidget extends StatelessWidget {
-  const TodoListWidget({super.key});
+class FinishedListWidget extends StatelessWidget {
+  const FinishedListWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<ToDoListProvider>(context);
-    final todos = provider.list;
+    final finished = provider.completed;
 
-    return todos.isEmpty
+    return finished.isEmpty
         ? Center(
             child: Text(
-              'No todos.',
+              'No finished Task.',
               style: TextStyle(fontSize: 20),
             ),
           )
@@ -24,15 +24,12 @@ class TodoListWidget extends StatelessWidget {
             physics: BouncingScrollPhysics(),
             padding: EdgeInsets.all(16),
             separatorBuilder: (context, index) => Container(height: 8),
-            itemCount: todos.length,
+            itemCount: finished.length,
             itemBuilder: (context, index) {
-              final todo = todos[index];
+              final completed = finished[index];
 
-              return TodoWidget(todo: todo);
+              return FinishedWidget(finished: completed);
             },
           );
   }
 }
-
-
-
