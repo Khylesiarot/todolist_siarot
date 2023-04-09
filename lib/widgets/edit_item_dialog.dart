@@ -4,11 +4,9 @@ import '../Provider/todolist_provider.dart';
 import '../model/todo_model.dart';
 
 class EditDialogWidget extends StatefulWidget {
-
   final ToDo toDo;
 
-  const EditDialogWidget({Key? key, required this.toDo}): super(key: key);
-
+  const EditDialogWidget({Key? key, required this.toDo}) : super(key: key);
 
   @override
   State<EditDialogWidget> createState() => _EditDialogWidgetState();
@@ -18,10 +16,10 @@ class _EditDialogWidgetState extends State<EditDialogWidget> {
   late final TextEditingController _controller;
   late final TextEditingController _descController;
 
-   @override
+  @override
   void initState() {
     _controller = TextEditingController();
-    _descController =TextEditingController();
+    _descController = TextEditingController();
     super.initState();
   }
 
@@ -34,19 +32,31 @@ class _EditDialogWidgetState extends State<EditDialogWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return AlertDialog(
-      content: Column(
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: Icon(Icons.arrow_back)),
+        title: Text('Edit Todo'),
+        actions: [
+          IconButton(
+              onPressed: () {
+                context.read<ToDoListProvider>().remove(widget.toDo.getID);
+
+                const snackBar =
+                    SnackBar(content: Text('To Do item has been removed'));
+                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                Navigator.pop(context);
+              },
+              icon: Icon(Icons.delete))
+        ],
+      ),
+      body: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            'Edit Todo',
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 22,
-            ),
-          ),
-          const SizedBox(height: 8),
           TextField(
             controller: _controller,
             decoration: const InputDecoration(
@@ -69,16 +79,18 @@ class _EditDialogWidgetState extends State<EditDialogWidget> {
           const SizedBox(height: 16),
           Row(
             children: [
-               TextButton(
+              TextButton(
                   onPressed: () {
                     if (_controller.text.isNotEmpty) {
                       final todo = widget.toDo;
-                      final editTitle =  _controller.text;
+                      final editTitle = _controller.text;
                       final editDesc = _descController.text;
 
-                       context.read<ToDoListProvider>().edit(todo.getID, editTitle, editDesc);
-                      const snackBar =
-                          SnackBar(content: Text('To Do Item has been editted'));
+                      context
+                          .read<ToDoListProvider>()
+                          .edit(todo.getID, editTitle, editDesc);
+                      const snackBar = SnackBar(
+                          content: Text('To Do Item has been editted'));
                       ScaffoldMessenger.of(context).showSnackBar(snackBar);
                       Navigator.pop(context);
                     }
