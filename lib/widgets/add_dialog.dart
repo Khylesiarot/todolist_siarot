@@ -14,10 +14,10 @@ class _AddDialogWidgetState extends State<AddDialogWidget> {
   late final TextEditingController _controller;
   late final TextEditingController _descController;
 
-   @override
+  @override
   void initState() {
     _controller = TextEditingController();
-    _descController =TextEditingController();
+    _descController = TextEditingController();
     super.initState();
   }
 
@@ -56,47 +56,54 @@ class _AddDialogWidgetState extends State<AddDialogWidget> {
             controller: _descController,
             keyboardType: TextInputType.multiline,
             minLines: 1,
+            maxLines: 20,
             decoration: const InputDecoration(
               border: UnderlineInputBorder(),
               labelText: 'Description',
             ),
           ),
           const SizedBox(height: 16),
-          Row(
-            children: [
-               TextButton(
-                  onPressed: () {
-                    if (_controller.text.isNotEmpty) {
-                      final ToDo newItem = ToDo(
-                          toDo: _controller.text,
-                          description: _descController.text);
-                      context.read<ToDoListProvider>().add(newItem);
-                      const snackBar =
-                          SnackBar(content: Text('To Do Item added'));
-                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                      Navigator.pop(context);
-                    }
-                  },
-                  child: const Text(
-                    'Enter',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.deepPurple,
-                    ),
-                  )),
-              TextButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  child: const Text(
-                    'Cancel',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.red,
-                    ),
-                  )),
-            ],
-          )
+          MaterialButton(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5)),
+              height: 50,
+              minWidth: double.infinity,
+              color: Colors.blue,
+              onPressed: () {
+                if (_controller.text.isNotEmpty) {
+                  final ToDo newItem = ToDo(
+                      toDo: _controller.text,
+                      description: _descController.text);
+                  context.read<ToDoListProvider>().add(newItem);
+                  const snackBar = SnackBar(content: Text('To Do Item added'));
+                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                  Navigator.pop(context);
+                }
+              },
+              child: const Text(
+                'Save',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              )),
+          const SizedBox(height: 8),
+          MaterialButton(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5)),
+              color: Colors.black87,
+              height: 50,
+              minWidth: double.infinity,
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Text(
+                'Cancel',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ))
         ],
       ),
     );

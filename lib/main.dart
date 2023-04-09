@@ -62,9 +62,7 @@ class _HomePageState extends State<HomePage> {
         }, icon: const Icon(Icons.delete_sweep_rounded))
       ],
         centerTitle: true,
-      ),
-
-
+      ),  
 
 
       bottomNavigationBar: BottomNavigationBar(
