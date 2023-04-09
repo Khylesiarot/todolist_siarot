@@ -24,13 +24,8 @@ class TodoWidget extends StatelessWidget {
           children: [
             SlidableAction(
                 onPressed: (context) {
-                  showDialog(
-                    context: context,
-                    builder: (context) => EditDialogWidget(
-                      toDo: todo,
-                    ),
-                    barrierDismissible: false,
-                  );
+                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => EditDialogWidget(toDo: todo,)));
+  
                 },
                 backgroundColor: Colors.green,
                 foregroundColor: Colors.white,
@@ -62,13 +57,8 @@ class TodoWidget extends StatelessWidget {
   Widget buildTodo(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        showDialog(
-          context: context,
-          builder: (context) => EditDialogWidget(
-            toDo: todo,
-          ),
-          barrierDismissible: false,
-        );
+        Navigator.of(context).push(MaterialPageRoute(builder: (context) => EditDialogWidget(toDo: todo,)));
+  
       },
       child: Card(
         elevation: 5,
