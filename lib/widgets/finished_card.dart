@@ -86,10 +86,10 @@ class FinishedWidget extends StatelessWidget {
                   ),
                   if (finished.description.isNotEmpty)
                     Container(
-                      margin: EdgeInsets.only(top: 4),
+                      margin: const EdgeInsets.only(top: 4),
                       child: Text(
                         finished.description,
-                        style: TextStyle(fontSize: 20, height: 1.5),
+                        style: const TextStyle(fontSize: 20, height: 1.5),
                       ),
                     )
                 ],

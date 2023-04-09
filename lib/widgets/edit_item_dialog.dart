@@ -38,8 +38,8 @@ class _EditDialogWidgetState extends State<EditDialogWidget> {
             onPressed: () {
               Navigator.pop(context);
             },
-            icon: Icon(Icons.arrow_back)),
-        title: Text('Edit Todo'),
+            icon: const Icon(Icons.arrow_back)),
+        title: const Text('Edit Todo'),
         actions: [
           IconButton(
               onPressed: () {
@@ -50,42 +50,46 @@ class _EditDialogWidgetState extends State<EditDialogWidget> {
                 ScaffoldMessenger.of(context).showSnackBar(snackBar);
                 Navigator.pop(context);
               },
-              icon: Icon(Icons.delete))
+              icon: const Icon(Icons.delete))
         ],
       ),
-      body: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          TextField(
-            controller: _controller,
-            decoration: const InputDecoration(
-              border: UnderlineInputBorder(),
-              hintText: 'Edit Title here',
-              labelText: 'Title',
-            ),
-          ),
-          const SizedBox(height: 8),
-          TextField(
-            controller: _descController,
-            keyboardType: TextInputType.multiline,
-            minLines: 1,
-            decoration: const InputDecoration(
-              border: UnderlineInputBorder(),
-              hintText: 'Edit Description here',
-              labelText: 'Description',
-            ),
-          ),
-          const SizedBox(height: 16),
-          Row(
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              TextButton(
+              TextField(
+                controller: _controller,
+                decoration: const InputDecoration(
+                  border: UnderlineInputBorder(),
+                  hintText: 'Edit Title here',
+                  labelText: 'Title',
+                ),
+              ),
+              const SizedBox(height: 8),
+              TextField(
+                controller: _descController,
+                keyboardType: TextInputType.multiline,
+                minLines: 1,
+                decoration: const InputDecoration(
+                  border: UnderlineInputBorder(),
+                  hintText: 'Edit Description here',
+                  labelText: 'Description',
+                ),
+              ),
+              const SizedBox(height: 16),
+              MaterialButton(
+                minWidth: double.infinity,
+                height: 50,
+                color: Colors.blue,
                   onPressed: () {
                     if (_controller.text.isNotEmpty) {
                       final todo = widget.toDo;
                       final editTitle = _controller.text;
                       final editDesc = _descController.text;
-
+              
                       context
                           .read<ToDoListProvider>()
                           .edit(todo.getID, editTitle, editDesc);
@@ -99,23 +103,12 @@ class _EditDialogWidgetState extends State<EditDialogWidget> {
                     'Enter',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      color: Colors.deepPurple,
+                      color: Colors.white,
                     ),
-                  )),
-              TextButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  child: const Text(
-                    'Cancel',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.red,
-                    ),
-                  )),
+                  ))
             ],
-          )
-        ],
+          ),
+        ),
       ),
     );
   }
