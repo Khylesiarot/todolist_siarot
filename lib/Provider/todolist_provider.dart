@@ -24,6 +24,18 @@ class ToDoListProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+
+  void removeAllToDo (){
+    _list.clear();
+    notifyListeners();
+  }
+
+  
+  void removeAllCompleted (){
+    _completed.clear();
+    notifyListeners();
+  }
+
   void remove(String id) {
     int index = _list.indexWhere((e) => e.getID == id);
     _list.removeAt(index);
@@ -50,16 +62,16 @@ class ToDoListProvider extends ChangeNotifier {
 
   void transferCompleted(String id) {
     int index = _list.indexWhere((e) => e.getID == id);
-    ToDo finTask = _list[index];
-    _completed.add(finTask);
+    ToDo finished = _list[index];
+    _completed.add(finished);
     _list.removeAt(index);
     notifyListeners();
   }
 
   void transferUnfinished(String id) {
     int index = _completed.indexWhere((e) => e.getID == id);
-    ToDo unfinTask = _completed[index];
-    _list.add(unfinTask);
+    ToDo unfinished = _completed[index];
+    _list.add(unfinished);
     _completed.removeAt(index);
     notifyListeners();
   }

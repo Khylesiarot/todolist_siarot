@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:todolist_siarot/Provider/todolist_provider.dart';
 import 'package:todolist_siarot/widgets/add_dialog.dart';
 import 'package:provider/provider.dart';
+import 'package:todolist_siarot/widgets/finished_list_widget.dart';
 
 import 'widgets/todo_list_widget.dart';
 
@@ -9,6 +10,7 @@ void main() {
   runApp(ChangeNotifierProvider(
     create: (_) => ToDoListProvider(),
     child: MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Todo App',
       theme: ThemeData(
         primarySwatch: Colors.blue,
@@ -36,20 +38,43 @@ class _HomePageState extends State<HomePage> {
         },
       ),
     ),
+    Center(
+      child: Consumer<ToDoListProvider>(
+        builder: (context, value, child) {
+          return FinishedListWidget();
+        },
+      ),
+    ),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Todo App'),
+      appBar: AppBar(        
+        title: Text(selectedIndex == 0 ?
+ 'Todo List' : 'Completed Task'),
+      actions: [
+        IconButton(onPressed: (){
+            selectedIndex == 0 ? context.read<ToDoListProvider>().removeAllToDo() : context.read<ToDoListProvider>().removeAllCompleted();
+             const snackBar =
+                      SnackBar(content: Text('All todos has been removed'));
+                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        }, icon: const Icon(Icons.delete_sweep_rounded))
+      ],
         centerTitle: true,
       ),
+
+
+
+
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.blue,
         unselectedItemColor: Colors.white70,
         selectedItemColor: Colors.white,
         currentIndex: selectedIndex,
+        onTap: (index) => setState(() {
+          selectedIndex = index;
+        }),
         items: const [
           BottomNavigationBarItem(
               icon: Icon(Icons.fact_check_outlined), label: 'Todos'),
