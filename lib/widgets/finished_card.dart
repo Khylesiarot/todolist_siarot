@@ -26,7 +26,7 @@ class FinishedWidget extends StatelessWidget {
                   const snackBar =
                       SnackBar(content: Text('To Do item removed'));
                   ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                  context.read<ToDoListProvider>().removeFromCompleted(finished.getID);
+                  context.read<ToDoListProvider>().removeFromCompletedList(finished.getID);
                 },
                 backgroundColor: Colors.red,
                 foregroundColor: Colors.white,
