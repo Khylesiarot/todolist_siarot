@@ -73,54 +73,62 @@ class TodoWidget extends StatelessWidget {
       child: Card(
         elevation: 5,
         shadowColor: Colors.black87,
-        child: Row(
-          children: [
-            Checkbox(
-              activeColor: Theme.of(context).primaryColor,
-              checkColor: Colors.white,
-              value: todo.isDone,
-              onChanged: ((_) async {
-                                  context
-                                      .read<ToDoListProvider>()
-                                      .setTaskComplete(todo.getID);
-                                  Future.delayed(
-                                      const Duration(milliseconds: 200), () {
-                                    context
-                                        .read<ToDoListProvider>()
-                                        .transferCompleted(todo.getID);
-                                    const snackBar = SnackBar(
-                                        content: Text('Task completed'));
-                                    ScaffoldMessenger.of(context)
-                                        .showSnackBar(snackBar);
-                                  });
-                                }
-                          ),
-            ),
-            const SizedBox(width: 20),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    todo.item,
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Theme.of(context).primaryColor,
-                      fontSize: 22,
-                    ),
-                  ),
-                  if (todo.description.isNotEmpty)
-                    Container(
-                      margin: EdgeInsets.only(top: 4),
-                      child: Text(
-                        todo.description,
-                        style: TextStyle(fontSize: 20, height: 1.5),
-                      ),
-                    )
-                ],
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 10.0),
+          child: Row(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only( left : 10.0),
+                child: Checkbox(
+                  activeColor: Theme.of(context).primaryColor,
+                  checkColor: Colors.white,
+                  value: todo.isDone,
+                  onChanged: ((_) async {
+                                      context
+                                          .read<ToDoListProvider>()
+                                          .setTaskComplete(todo.getID);
+                                      Future.delayed(
+                                          const Duration(milliseconds: 200), () {
+                                        context
+                                            .read<ToDoListProvider>()
+                                            .transferCompleted(todo.getID);
+                                        const snackBar = SnackBar(
+                                            content: Text('Task completed'));
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(snackBar);
+                                      });
+                                    }
+                              ),
+                ),
               ),
-            ),
-          ],
+              const SizedBox(width: 20),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                     const SizedBox(width: 8),
+                    Text(
+                      todo.item,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).primaryColor,
+                        fontSize: 22,
+                      ),
+                    ),
+                    if (todo.description.isNotEmpty)
+                      Container(
+                        margin: EdgeInsets.only(top: 4),
+                        child: Text(
+                          todo.description,
+                          style: TextStyle(fontSize: 20, height: 1.5),
+                        ),
+                      ),
+                      
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
