@@ -24,9 +24,11 @@ class FinishedWidget extends StatelessWidget {
             SlidableAction(
                 onPressed: (context) {
                   const snackBar =
-                      SnackBar(content: Text('To Do item removed'));
+                  SnackBar(content: Text('Task has been removed'));
                   ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                  context.read<ToDoListProvider>().removeFromCompletedList(finished.getID);
+                  context
+                      .read<ToDoListProvider>()
+                      .removeFromCompletedList(finished.getID);
                 },
                 backgroundColor: Colors.red,
                 foregroundColor: Colors.white,
@@ -54,21 +56,17 @@ class FinishedWidget extends StatelessWidget {
                 checkColor: Colors.white,
                 value: finished.isDone,
                 onChanged: ((_) async {
-                                    context
-                                        .read<ToDoListProvider>()
-                                        .setTaskUnfinish(finished.getID);
-                                    Future.delayed(
-                                        const Duration(milliseconds: 200), () {
-                                      context
-                                          .read<ToDoListProvider>()
-                                          .transferUnfinished(finished.getID);
-                                      const snackBar = SnackBar(
-                                          content: Text('Task completed'));
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(snackBar);
-                                    });
-                                  }
-                            ),
+                  context
+                      .read<ToDoListProvider>()
+                      .setTaskUnfinish(finished.getID);
+                  Future.delayed(const Duration(milliseconds: 200), () {
+                    context
+                        .read<ToDoListProvider>()
+                        .transferUnfinished(finished.getID);
+                    const snackBar = SnackBar(content: Text('Task marked as unfinished'));
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                  });
+                }),
               ),
             ),
             const SizedBox(width: 20),

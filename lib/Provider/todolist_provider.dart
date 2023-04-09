@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 
 import '../model/todo_model.dart';
 
-
 class ToDoListProvider extends ChangeNotifier {
   final List<ToDo> _list = [];
   final List<ToDo> _completed = [];
@@ -24,14 +23,12 @@ class ToDoListProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-
-  void removeAllToDo (){
+  void removeAllToDo() {
     _list.clear();
     notifyListeners();
   }
 
-  
-  void removeAllCompleted (){
+  void removeAllCompleted() {
     _completed.clear();
     notifyListeners();
   }

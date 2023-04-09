@@ -18,8 +18,8 @@ class _EditDialogWidgetState extends State<EditDialogWidget> {
 
   @override
   void initState() {
-    _controller = TextEditingController();
-    _descController = TextEditingController();
+    _controller = TextEditingController(text: widget.toDo.item);
+    _descController = TextEditingController(text: widget.toDo.desc);
     super.initState();
   }
 
@@ -44,9 +44,8 @@ class _EditDialogWidgetState extends State<EditDialogWidget> {
           IconButton(
               onPressed: () {
                 context.read<ToDoListProvider>().remove(widget.toDo.getID);
-
                 const snackBar =
-                    SnackBar(content: Text('To Do item has been removed'));
+                    SnackBar(content: Text('Task has been removed'));
                 ScaffoldMessenger.of(context).showSnackBar(snackBar);
                 Navigator.pop(context);
               },
@@ -64,7 +63,7 @@ class _EditDialogWidgetState extends State<EditDialogWidget> {
                 controller: _controller,
                 decoration: const InputDecoration(
                   border: UnderlineInputBorder(),
-                  hintText: 'Edit Title here',
+                  // hintText: 'Edit Title here',
                   labelText: 'Title',
                 ),
               ),
@@ -73,28 +72,29 @@ class _EditDialogWidgetState extends State<EditDialogWidget> {
                 controller: _descController,
                 keyboardType: TextInputType.multiline,
                 minLines: 1,
+                maxLines: 20,
                 decoration: const InputDecoration(
                   border: UnderlineInputBorder(),
                   hintText: 'Edit Description here',
-                  labelText: 'Description',
+                  // labelText: 'Description',
                 ),
               ),
               const SizedBox(height: 16),
               MaterialButton(
-                minWidth: double.infinity,
-                height: 50,
-                color: Colors.blue,
+                  minWidth: double.infinity,
+                  height: 50,
+                  color: Colors.blue,
                   onPressed: () {
                     if (_controller.text.isNotEmpty) {
                       final todo = widget.toDo;
                       final editTitle = _controller.text;
                       final editDesc = _descController.text;
-              
+
                       context
                           .read<ToDoListProvider>()
                           .edit(todo.getID, editTitle, editDesc);
                       const snackBar = SnackBar(
-                          content: Text('To Do Item has been editted'));
+                          content: Text('Task has been editted'));
                       ScaffoldMessenger.of(context).showSnackBar(snackBar);
                       Navigator.pop(context);
                     }
